@@ -1,36 +1,58 @@
-class Bracket:
-    def __init__(self, type, position):
-        self.type = type
-        self.position = position
+from collections import namedtuple
 
-    def match(self, c):
-        if self.type == '[' and c == ']':
-            return True
-        if self.type == '{' and c == '}':
-            return True
-        if self.type == '(' and c == ')':
-            return True
-        return False
+Bracket = namedtuple("Bracket", ["char", "position"])
 
-text = input()
 
-opening_brackets_stack = []
-for position in range(len(text)):
-    next = text[position]
+def are_matching(left, right):
+    return (left + right) in ["()", "[]", "{}"]
 
-    if next in ['(', '[', '{']:
-        # Process opening bracket, write your code here
-        opening_brackets_stack.append(Bracket(next, position + 1))
 
-    if next in [')', ']', '}']:
-        # Process closing bracket, write your code here
-        if not opening_brackets_stack or not opening_brackets_stack[-1].match(next):
-            print(position + 1)
-            exit()
-        opening_brackets_stack.pop()
+def find_mismatch(text):
+    opening_brackets_stack = []
+    for i, next in enumerate(text):
+        if next in "([{":
 
-# Printing answer, write your code here
-if not opening_brackets_stack:
-    print("Success")
-else:
-    print(opening_brackets_stack[-1].position)
+
+          # Process opening bracket, write your code here
+ #opening_brackets_stack.append(Bracket(next,i+1))
+          opening_brackets_stack.append(Bracket(next,i+1))
+          
+          
+          
+          
+           
+
+        if next in ")]}":
+           if not opening_brackets_stack or not are_matching(opening_brackets_stack[-1].char,next):
+             return i+1
+           opening_brackets_stack.pop()
+           if opening_brackets_stack:
+             return opening_brackets_stack[0].position
+             return "Succes"
+             
+             
+
+    #             return i+1
+    #         opening_brackets_stack.pop()
+    # if opening_brackets_stack:
+#        return
+# opening_brackets_stack[0].position
+#     return "Success"
+            
+          
+#             # Process closing bracket, write your code here
+#             pass
+
+
+def main():
+    text = input()
+    mismatch = find_mismatch(text)
+
+   
+    # Printing answer, write your code here
+    print(mismatch)
+
+main()
+# if __name__ == "__main__": 
+#   input("I")
+#   main()
