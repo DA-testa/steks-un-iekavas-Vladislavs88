@@ -1,36 +1,36 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10196365&assignment_repo_type=AssignmentRepo)
-# stack_brackets
-Task. Your friend is making a text editor for programmers. He is currently working on a feature that will
-find errors in the usage of different types of brackets. Code can contain any brackets from the set
-[]{}(), where the opening brackets are [,{, and ( and the closing brackets corresponding to them
-are ],}, and ).
-For convenience, the text editor should not only inform the user that there is an error in the usage
-of brackets, but also point to the exact place in the code with the problematic bracket. First priority
-is to find the first unmatched closing bracket which either doesn’t have an opening bracket before it,
-like ] in ](), or closes the wrong opening bracket, like } in ()[} . If there are no such mistakes, then
-it should find the first unmatched opening bracket without the corresponding closing bracket after it,
-like ( in {}([]. If there are no mistakes, text editor should inform the user that the usage of brackets
-is correct.
-Apart from the brackets, code can contain big and small latin letters, digits and punctuation marks.
-More formally, all brackets in the code should be divided into pairs of matching brackets, such that in
-each pair the opening bracket goes before the closing bracket, and for any two pairs of brackets either
-one of them is nested inside another one as in (foo[bar]) or they are separate as in f(a,b)-g[c].
-The bracket [ corresponds to the bracket ], { corresponds to }, and ( corresponds to ).
-Input Format. Input contains one string 𝑆 which consists of big and small latin letters, digits, punctuation
-marks and brackets from the set []{}().
-Constraints. The length of 𝑆 is at least 1 and at most 105.
-Output Format. If the code in 𝑆 uses brackets correctly, output “Success" (without the quotes). Otherwise,
-output the 1-based index of the first unmatched closing bracket, and if there are no unmatched closing
-brackets, output the 1-based index of the first unmatched opening bracket.
+class Bracket:
+    def __init__(self, type, position):
+        self.type = type
+        self.position = position
 
+    def match(self, c):
+        if self.type == '[' and c == ']':
+            return True
+        if self.type == '{' and c == '}':
+            return True
+        if self.type == '(' and c == ')':
+            return True
+        return False
 
+text = input()
 
+opening_brackets_stack = []
+for position in range(len(text)):
+    next = text[position]
 
-Use the test files
+    if next in ['(', '[', '{']:
+        # Process opening bracket, write your code here
+        opening_brackets_stack.append(Bracket(next, position + 1))
 
-Use an input to choose files or input - F or I
-If input I, wait for another input to input the brackets.
+    if next in [')', ']', '}']:
+        # Process closing bracket, write your code here
+        if not opening_brackets_stack or not opening_brackets_stack[-1].match(next):
+            print(position + 1)
+            exit()
+        opening_brackets_stack.pop()
 
-Check that you output the results.
-
-In case of success, output Success
+# Printing answer, write your code here
+if not opening_brackets_stack:
+    print("Success")
+else:
+    print(opening_brackets_stack[-1].position)
