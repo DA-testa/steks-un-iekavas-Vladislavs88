@@ -25,11 +25,16 @@ def find_mismatch(text):
     return "Success"
 
 def main():
-
+  
+ n = input()
+ if n=="F":
     text = input()
     mismatch = find_mismatch(text)
-  
     print(mismatch)
+ else:
+   text = input()
+   mismatch = find_mismatch(text)
+   print(mismatch)
 
 if __name__ == "__main__":
     main()
