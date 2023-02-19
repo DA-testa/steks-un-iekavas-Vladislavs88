@@ -1,10 +1,8 @@
 # python3
 
 from collections import namedtuple
-name = 'I';
-n=input()
-if n==name:
-     Bracket = namedtuple("Bracket", ["char", "position"])
+
+Bracket = namedtuple("Bracket", ["char", "position"])
 
 
 def are_matching(left, right):
