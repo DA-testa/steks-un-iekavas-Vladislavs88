@@ -29,5 +29,5 @@ def main():
     mismatch = find_mismatch(text)
     print(mismatch)
 
-if _name__=="___main__":
+if __name__=="___main__":
     main()
