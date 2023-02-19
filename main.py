@@ -1,45 +1,36 @@
-from collections import namedtuple
+class Bracket:
+    def __init__(self, type, position):
+        self.type = type
+        self.position = position
 
-Bracket = namedtuple("Bracket", ["char", "position"])
+    def match(self, c):
+        if self.type == '[' and c == ']':
+            return True
+        if self.type == '{' and c == '}':
+            return True
+        if self.type == '(' and c == ')':
+            return True
+        return False
 
+text = input()
 
-def are_matching(left, right):
-    return (left + right) in ["()", "[]", "{}"]
+opening_brackets_stack = []
+for position in range(len(text)):
+    next = text[position]
 
+    if next in ['(', '[', '{']:
+        # Process opening bracket, write your code here
+        opening_brackets_stack.append(Bracket(next, position + 1))
 
-def find_mismatch(text):
-    opening_brackets_stack = []
-    for i, next in enumerate(text):
-        if next in "([{":
+    if next in [')', ']', '}']:
+        # Process closing bracket, write your code here
+        if not opening_brackets_stack or not opening_brackets_stack[-1].match(next):
+            print(position + 1)
+            exit()
+        opening_brackets_stack.pop()
 
-opening_brackets_stack.append(Bracket(next,i+1))
-            # Process opening bracket, write your code here
-           # pass
-
-        if next in ")]}":
-            if not opening_brackets_stack or not
-          are_matching(opening_brackets_stack[-1].char,next):
-                return i+1
-            opening_brackets_stack.pop()
-    if opening_brackets_stack:
-       return
-opening_brackets_stack[0].position
-    return "Success"
-            
-          
-            # Process closing bracket, write your code here
-           # pass
-
-
-def main():
-    text = input()
-    mismatch = find_mismatch(text)
-  if not opening_brackets_stack:
+# Printing answer, write your code here
+if not opening_brackets_stack:
     print("Success")
 else:
     print(opening_brackets_stack[-1].position)
-    # Printing answer, write your code here
-
-
-if __name__ == "__main__":
-    main()
