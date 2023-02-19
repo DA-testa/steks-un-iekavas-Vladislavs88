@@ -1,3 +1,8 @@
+#pirmais lab.darbs
+#python 3
+#Vladislavs Sidorkins 221RDB070
+
+
 from collections import namedtuple
 
 Bracket = namedtuple("Bracket", ["char", "position"])
